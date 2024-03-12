@@ -11,6 +11,7 @@ public class JobController {
 
     @GetMapping("/jobs")
     public List<Job> findAll(){
+
         return jobs;
     }
 }
