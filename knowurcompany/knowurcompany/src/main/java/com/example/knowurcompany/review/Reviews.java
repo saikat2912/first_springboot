@@ -18,6 +18,7 @@ public class Reviews {
     @JoinColumn(name = "company_id")
     private Company company;
 
+
     private String review;
 
     private String username;

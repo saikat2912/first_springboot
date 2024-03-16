@@ -1,5 +1,6 @@
 package com.example.knowurcompany.job;
 
+import com.example.knowurcompany.company.Company;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,6 +10,10 @@ public class Job {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    private Company company;
     private String title;
     private String description;
     private String minSalary;
