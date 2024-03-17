@@ -1,12 +1,49 @@
 package com.example.knowurcompany.review;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/companies")
+@RequestMapping("/companies/{companyId}")
 public class ReviewController {
+
+    private ReviewService reveiwService;
+
+    public ReviewController(ReviewService reveiwService) {
+        this.reveiwService = reveiwService;
+    }
+
+    @GetMapping("/reviews")
+    public ResponseEntity<List<Reviews>> getAllReviews(@PathVariable Long companyId){
+        return new ResponseEntity<>(reveiwService.findAll(companyId), HttpStatus.OK);
+    }
+
+    @PostMapping("/reviews")
+    public ResponseEntity<String> postReview(@PathVariable Long companyId, @RequestBody Reviews review){
+        try{
+            reveiwService.createReview(companyId,review);
+            return new ResponseEntity<>("Review Posted Successfully",HttpStatus.OK);
+        }
+
+        catch(Exception e){
+            return new ResponseEntity<>("Error in review Posting try again later",HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/reviews/{reviewId}")
+    public ResponseEntity<Reviews> getReviewById(@PathVariable Long companyId,@PathVariable Long reviewId){
+         return new ResponseEntity<>(reveiwService.getReviewById(companyId,reviewId),HttpStatus.OK);
+    }
+
+    @PutMapping("/reviews/{reviewId}")
+    public ResponseEntity<String> updateReview(@PathVariable Long companyId,@PathVariable Long reviewId,@RequestBody Reviews review){
+        reveiwService.updateReviewById(companyId,reviewId,review);
+    }
+
 
 
 }

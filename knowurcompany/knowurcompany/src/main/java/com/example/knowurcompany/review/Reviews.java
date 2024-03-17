@@ -2,6 +2,7 @@ package com.example.knowurcompany.review;
 
 
 import com.example.knowurcompany.company.Company;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,7 +16,7 @@ public class Reviews {
 
 
     @ManyToOne
-    @JoinColumn(name = "company_id")
+    @JsonIgnore
     private Company company;
 
 

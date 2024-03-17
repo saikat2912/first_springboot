@@ -1,10 +1,11 @@
 package com.example.knowurcompany.company;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.example.knowurcompany.review.Reviews;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "COMPANY")
@@ -17,6 +18,18 @@ public class Company {
     private String name;
     private String address;
     private int noOfEmployees;
+
+    public List<Reviews> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Reviews> reviews) {
+        this.reviews = reviews;
+    }
+
+    @OneToMany(mappedBy = "company")
+    @JsonIgnore
+    private List<Reviews> reviews;
     private String founder;
 
     public Company(Long id, String name, String address, int noOfEmployees, String founder) {
