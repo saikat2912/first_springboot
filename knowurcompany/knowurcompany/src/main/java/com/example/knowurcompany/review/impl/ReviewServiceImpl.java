@@ -54,16 +54,37 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public void updateReviewById(Long companyId,Long id,Reviews review) {
-        List<Reviews> reviews = reviewRepository.findByCompanyId(companyid);
-        Optional<Reviews> rev= reviews.stream().
-                filter(review ->review.getId().equals(id))
-                .findFirst()
-                .orElse(null);
+    public boolean updateReviewById(Long companyId,Long id,Reviews review) {
+        if(companyService.findCompany(id)!=null){
+            review.setCompany(companyService.findCompany(companyId));
+            review.setId(id);
+            reviewRepository.save(review);
+            return true;
+        }
+        else{
+            return false;
+        }
+
+
     }
 
     @Override
-    public void deleteReview(Long id) {
+    public boolean deleteReview(Long companyId,Long reviewId) {
+        List<Reviews> reviews = reviewRepository.findByCompanyId(companyId);
+        Optional<Reviews> rev= Optional.ofNullable(reviews.stream().
+                filter(review -> review.getId().equals(reviewId))
+                .findFirst()
+                .orElse(null));
+
+        if(rev.isPresent()){
+            Reviews review1=rev.get();
+            System.out.println("Review 1 is "+review1);
+            reviewRepository.delete(review1);
+
+            return true;
+        }
+
+        return false;
 
     }
 }

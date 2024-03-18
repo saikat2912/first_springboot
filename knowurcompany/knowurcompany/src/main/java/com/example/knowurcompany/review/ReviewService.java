@@ -10,7 +10,7 @@ public interface ReviewService {
 
     Reviews getReviewById(Long companyId,Long id);
 
-    void updateReviewById(Long companyId,Long id,Reviews review);
+    boolean updateReviewById(Long companyId,Long id,Reviews review);
 
-    void deleteReview(Long id);
+    boolean deleteReview(Long companyId,Long reviewId);
 }
