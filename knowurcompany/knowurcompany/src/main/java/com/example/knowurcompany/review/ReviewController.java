@@ -24,14 +24,16 @@ public class ReviewController {
 
     @PostMapping("/reviews")
     public ResponseEntity<String> postReview(@PathVariable Long companyId, @RequestBody Reviews review){
-        try{
-            reveiwService.createReview(companyId,review);
-            return new ResponseEntity<>("Review Posted Successfully",HttpStatus.OK);
-        }
 
-        catch(Exception e){
-            return new ResponseEntity<>("Error in review Posting try again later",HttpStatus.BAD_REQUEST);
-        }
+            boolean val=reveiwService.createReview(companyId,review);
+
+            if(val){
+                return new ResponseEntity<>("Review Posted Successfully",HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>("Error in review Posting try again later",HttpStatus.BAD_REQUEST);
+            }
+
     }
 
     @GetMapping("/reviews/{reviewId}")

@@ -31,14 +31,16 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public void createReview(Long companyId,Reviews review) {
+    public boolean createReview(Long companyId,Reviews review) {
 
         Company company= companyService.findCompany(companyId);
         if(company!=null){
             review.setCompany(company);
             reviewRepository.save(review);
-        }
+            return true;
 
+        }
+            return false;
 
 
     }

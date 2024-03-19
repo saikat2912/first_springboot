@@ -6,7 +6,7 @@ public interface ReviewService {
 
     List<Reviews> findAll(Long companyId);
 
-    void createReview(Long comapanyId,Reviews review);
+    boolean createReview(Long comapanyId,Reviews review);
 
     Reviews getReviewById(Long companyId,Long id);
 
