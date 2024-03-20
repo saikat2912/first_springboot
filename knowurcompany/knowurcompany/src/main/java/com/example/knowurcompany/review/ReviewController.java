@@ -47,7 +47,7 @@ public class ReviewController {
         if(val){
             return new ResponseEntity<>("Review updated successfully",HttpStatus.OK);
         }
-        return new ResponseEntity<>("Review updation failed",HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Review updation failed",HttpStatus.BAD_REQUEST);
 
     }
 
