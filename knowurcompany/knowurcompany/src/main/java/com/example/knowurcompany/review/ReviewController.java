@@ -44,7 +44,7 @@ public class ReviewController {
     @PutMapping("/reviews/{reviewId}")
     public ResponseEntity<String> updateReview(@PathVariable Long companyId,@PathVariable Long reviewId,@RequestBody Reviews review){
         boolean val = reveiwService.updateReviewById(companyId,reviewId,review);
-        if(val){
+        if(val==true){
             return new ResponseEntity<>("Review updated successfully",HttpStatus.OK);
         }
         return new ResponseEntity<>("Review updation failed",HttpStatus.BAD_REQUEST);
