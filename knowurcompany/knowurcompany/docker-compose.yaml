@@ -1,0 +1,26 @@
+version: '3.8' # Or a suitable version for your setup
+
+services:
+  postgres:
+    image: postgres:latest  # Use a specific version if needed (e.g., postgres:14)
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword  # Replace with your desired password
+    ports:
+      - '5432:5432' # Exposes the standard PostgreSQL port
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persists database data
+
+  pgadmin:
+    image: dpage/pgadmin4:latest # Use a specific version if needed
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com  # Set your login email
+      PGADMIN_DEFAULT_PASSWORD: mysecretpassword # Set your login password
+    ports:
+      - '8080:80' # Exposes the pgAdmin web interface port
+    depends_on:
+      - postgres # Ensure Postgres starts first
+
+volumes:
+  postgres_data:
